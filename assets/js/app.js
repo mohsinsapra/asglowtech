@@ -9,26 +9,23 @@
    ───────────────────────────────────────────────────────────────────────── */
 
 const CATALOG = [
-  { id:'asg-9w-warm',  watts:9,  name:'9W LED Bulb', temp:'warm', tempLabel:'Warm white 3000K',
-    lumens:806,  price:420, replaces:60,  img:'assets/img/bulb-warm.webp' },
-
-  { id:'asg-9w-day',   watts:9,  name:'9W LED Bulb', temp:'day',  tempLabel:'Daylight 6500K',
-    lumens:806,  price:420, replaces:60,  img:'assets/img/bulb-day.webp' },
-
   { id:'asg-12w-warm', watts:12, name:'12W LED Bulb', temp:'warm', tempLabel:'Warm white 3000K',
-    lumens:1055, price:560, replaces:75,  img:'assets/img/bulb-warm-a.webp' },
+    lumens:1055, price:200, replaces:75,  img:'assets/img/bulb-warm.webp' },
 
   { id:'asg-12w-day',  watts:12, name:'12W LED Bulb', temp:'day',  tempLabel:'Daylight 6500K',
-    lumens:1055, price:560, replaces:75,  img:'assets/img/bulb-day-a.webp' },
+    lumens:1055, price:200, replaces:75,  img:'assets/img/bulb-day.webp' },
 
   { id:'asg-18w-warm', watts:18, name:'18W LED Bulb', temp:'warm', tempLabel:'Warm white 3000K',
-    lumens:1600, price:780, replaces:100, img:'assets/img/bulb-warm-hi.webp' },
+    lumens:1600, price:400, replaces:100, img:'assets/img/bulb-warm-hi.webp' },
 
   { id:'asg-18w-day',  watts:18, name:'18W LED Bulb', temp:'day',  tempLabel:'Daylight 6500K',
-    lumens:1600, price:780, replaces:100, img:'assets/img/bulb-day-hi.webp' }
+    lumens:1600, price:400, replaces:100, img:'assets/img/bulb-day-hi.webp' }
 ];
 
-const DELIVERY = { fee:200, freeOver:2000 };
+/* Shown on every bulb. Change here and it changes everywhere on the page. */
+const SPECS = { fitting:'E27', life:'3–4 years', warranty:'1 year' };
+
+const DELIVERY = { fee:200, freeOver:1500 };
 
 const WHATSAPP_NUMBER = '923196982388';   // +92 319 6982388, digits only
 const SHOP_NAME       = 'AS GlowTech';
@@ -124,7 +121,7 @@ function renderGrid() {
         <h3 class="card__name">${p.name}</h3>
         <p class="card__swap">Replaces an old ${p.replaces}W bulb</p>
         <p class="card__specs">
-          <span>${p.lumens} lm</span><span>${p.tempLabel}</span><span>E27</span><span>25,000 hrs</span>
+          <span>${p.lumens} lm</span><span>${p.tempLabel}</span><span>${SPECS.fitting}</span><span>${SPECS.life}</span>
         </p>
         <div class="card__buy">
           <span class="card__price">${money(p.price)}</span>
@@ -347,6 +344,24 @@ function waLink(text) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
+/* Reports a completed order to Google Analytics, so the shop can see which
+   bulbs actually sell. Silently does nothing if the tag is blocked or absent.
+   Customer name, phone and address are never sent. */
+function trackOrder(id, total) {
+  if (typeof gtag !== 'function') return;
+  gtag('event', 'purchase', {
+    transaction_id: id,
+    value: total,
+    currency: 'PKR',
+    items: cart.lines().map(l => ({
+      item_id: l.id,
+      item_name: `${l.watts}W ${l.tempLabel}`,
+      price: l.price,
+      quantity: l.qty
+    }))
+  });
+}
+
 function placeOrder(e) {
   e.preventDefault();
   const who = validate();
@@ -356,6 +371,7 @@ function placeOrder(e) {
   const text = orderText(id, who);
   const link = waLink(text);
 
+  trackOrder(id, cart.grand());       // must run before the cart is cleared
   emailOrder(id, who, text);          // deliberately not awaited
   const tab = window.open(link, '_blank', 'noopener');
 

@@ -22,18 +22,24 @@ Everything the shop sells lives in one block at the top of
 
 ```js
 const CATALOG = [
-  { id:'asg-9w-warm', watts:9, name:'9W LED Bulb', temp:'warm',
-    tempLabel:'Warm white 3000K', lumens:806, price:420, replaces:60,
+  { id:'asg-12w-warm', watts:12, name:'12W LED Bulb', temp:'warm',
+    tempLabel:'Warm white 3000K', lumens:1055, price:200, replaces:75,
     img:'assets/img/bulb-warm.webp' },
   ...
 ];
 
-const DELIVERY = { fee:200, freeOver:2000 };
+const SPECS    = { fitting:'E27', life:'3–4 years', warranty:'1 year' };
+const DELIVERY = { fee:200, freeOver:1500 };
 ```
 
-Change `price` to change what a bulb costs. Change `DELIVERY.fee` and
-`DELIVERY.freeOver` to change delivery charges and the free-delivery threshold.
-Commit and push — the site updates in about a minute.
+Change `price` to change what a bulb costs. `SPECS` sets the lifespan and
+warranty shown on every bulb. `DELIVERY.fee` and `DELIVERY.freeOver` set the
+delivery charge and the free-delivery threshold. Commit and push — the site
+updates in about a minute.
+
+The running-cost comparison in `index.html` (the "What twelve watts saves you"
+section) has its figures written out in the markup, so if wattages or the
+assumed tariff change, update them there too.
 
 Keep each `id` stable. If you rename an id, anyone with that bulb already in
 their cart simply loses that line; nothing breaks.
@@ -67,6 +73,16 @@ down.
 3. Commit and push.
 
 Until that is done the shop works fine on WhatsApp alone.
+
+## Analytics
+
+Google Analytics (`G-KNWDLZC3M9`) is in the `<head>` of `index.html`.
+
+A completed order also sends a `purchase` event carrying the order reference,
+the total, and which bulbs were bought — so GA's reports show what actually
+sells, not just page views. The customer's name, phone and address are never
+sent to Google. That code is `trackOrder()` in `assets/js/app.js`; delete the
+call in `placeOrder()` to turn it off.
 
 ## Pointing the domain at the site
 
