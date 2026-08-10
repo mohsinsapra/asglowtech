@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AS GlowTech">
+  <defs>
+    <radialGradient id="asg-glass" cx="50%" cy="42%" r="62%">
+      <stop offset="0%" stop-color="#FFE9BE"/>
+      <stop offset="55%" stop-color="#FFB020"/>
+      <stop offset="100%" stop-color="#C9761A"/>
+    </radialGradient>
+    <linearGradient id="asg-metal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6E6E78"/>
+      <stop offset="38%" stop-color="#D2D2DA"/>
+      <stop offset="70%" stop-color="#8B8B95"/>
+      <stop offset="100%" stop-color="#5C5C66"/>
+    </linearGradient>
+  </defs>
+
+  <!-- screw base -->
+  <path d="M24.5 42.5h15l-2 7.5h-11z" fill="url(#asg-metal)"/>
+  <rect x="26" y="50" width="12" height="10.5" rx="2.2" fill="url(#asg-metal)"/>
+  <g stroke="#0B0B0D" stroke-opacity=".55" stroke-width="1.1">
+    <path d="M26.4 53h11.2M26.4 56h11.2M26.4 59h11.2"/>
+  </g>
+
+  <!-- glass envelope -->
+  <circle cx="32" cy="27" r="19" fill="url(#asg-glass)"/>
+
+  <!-- the filament: an A and an S, wired to the contacts -->
+  <g fill="none" stroke="#0B0B0D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 36 25 20 30 36"/>
+    <path d="M22.2 30.7h5.6"/>
+    <path d="M43 24c0-3-3-4.2-5.2-4.2-2.8 0-4.2 1.7-4.2 3.8 0 4.8 9.4 2.6 9.4 8 0 2.8-2.6 4.6-5.4 4.6-2.3 0-4.2-1.1-4.6-3"/>
+  </g>
+  <g fill="none" stroke="#0B0B0D" stroke-opacity=".8" stroke-width="1.6" stroke-linecap="round">
+    <path d="M25 36.4v6.1M38 38.2v4.3"/>
+  </g>
+</svg>
