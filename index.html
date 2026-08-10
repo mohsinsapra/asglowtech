@@ -14,7 +14,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
+<!-- ?v= is a cache buster. Bump it whenever style.css or app.js changes, or
+     visitors keep the old file — including old prices — until their cache
+     expires. See "Releasing a change" in README.md. -->
+<link rel="stylesheet" href="assets/css/style.css?v=2">
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNWDLZC3M9"></script>
@@ -280,6 +283,6 @@
 
 <div class="sr" aria-live="polite" id="live"></div>
 
-<script src="assets/js/app.js"></script>
+<script src="assets/js/app.js?v=2"></script>
 </body>
 </html>

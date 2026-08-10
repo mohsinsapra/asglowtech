@@ -74,6 +74,23 @@ down.
 
 Until that is done the shop works fine on WhatsApp alone.
 
+## Releasing a change
+
+After editing `assets/css/style.css` or `assets/js/app.js`, **bump the `?v=`
+number on both tags in `index.html`**:
+
+```html
+<link rel="stylesheet" href="assets/css/style.css?v=2">
+<script src="assets/js/app.js?v=2"></script>
+```
+
+Browsers and Cloudflare cache those two files for hours. Without the bump, a
+returning customer can load the new page with the old script still cached — and
+see the old prices. Changing the number gives the file a new URL, so everyone
+gets it immediately.
+
+Images don't need this; new photos get new filenames.
+
 ## Analytics
 
 Google Analytics (`G-KNWDLZC3M9`) is in the `<head>` of `index.html`.
