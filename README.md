@@ -70,7 +70,13 @@ Until that is done the shop works fine on WhatsApp alone.
 
 ## Pointing the domain at the site
 
-At the registrar for `asglowtech.store`, set:
+`asglowtech.store` uses Loopia's nameservers (`ns1.loopia.se`, `ns2.loopia.se`).
+**Leave the nameservers alone** — they are correct. The change goes in Loopia's
+DNS record editor, not the nameserver page.
+
+Log in at loopia.se → Mina domäner → asglowtech.store → Hantera DNS, delete the
+existing A records (they currently point at `194.9.94.85` and `194.9.94.86`),
+and set:
 
 | Type  | Host | Value                 |
 | ----- | ---- | --------------------- |
@@ -80,8 +86,11 @@ At the registrar for `asglowtech.store`, set:
 | A     | @    | 185.199.111.153       |
 | CNAME | www  | mohsinsapra.github.io |
 
-DNS usually takes 15 minutes to a few hours. Once it resolves, enable
-**Enforce HTTPS** in the repository's Settings → Pages.
+Then set the custom domain in the repository's Settings → Pages → Custom domain
+to `asglowtech.store`, and tick **Enforce HTTPS** once the certificate is issued.
+
+Until that is done the shop is live at
+<https://mohsin.se/asglowtech/>.
 
 ## Running it locally
 
